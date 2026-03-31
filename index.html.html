@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Группа 1 — Операция Технолэнд</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Группа 1 — Операция Технолэнд</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030810;--panel:#071020;--border:#16305a;--a:#38bdf8;--glow:#7dd3fc;--hot:#f87171;--gold:#fbbf24;--green:#34d399;--purple:#a78bfa;--text:#dbeafe;--muted:#2a5a7a;--r:14px;}
+*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:#fff;animation:tw linear infinite}
+@keyframes tw{0%,100%{opacity:.1}50%{opacity:.9}}
+#app{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;max-width:700px;margin:0 auto}
+.screen{display:none;flex:1;flex-direction:column;overflow:hidden}.screen.active{display:flex}
+
+/* INTRO */
+#s-intro{align-items:center;justify-content:center;text-align:center;gap:12px;padding:20px}
+.gbadge{background:linear-gradient(135deg,#0284c7,#38bdf8);border-radius:30px;padding:5px 20px;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:#fff;box-shadow:0 0 18px rgba(56,189,248,.5);display:inline-block}
+.ilogo{font-family:'Orbitron',sans-serif;font-size:clamp(22px,6vw,42px);font-weight:900;color:#fff;text-shadow:0 0 28px rgba(56,189,248,.6);line-height:1.15}
+.ilogo em{color:var(--a);font-style:normal}
+.isub{font-size:13px;color:var(--muted);max-width:320px;line-height:1.6}
+.howbox{background:rgba(56,189,248,.05);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;max-width:420px;width:100%;text-align:left}
+.howbox h3{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--a);margin-bottom:10px}
+.hstep{display:flex;align-items:flex-start;gap:8px;margin:5px 0;font-size:13px;line-height:1.5}
+.hnum{min-width:20px;height:20px;border-radius:50%;background:rgba(56,189,248,.12);border:1px solid var(--a);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:9px;color:var(--a);flex-shrink:0;margin-top:2px}
+.bigbtn{max-width:420px;width:100%;padding:14px;background:linear-gradient(135deg,#0284c7,#38bdf8);border:none;border-radius:var(--r);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;color:#000;font-weight:700;cursor:pointer;box-shadow:0 0 26px rgba(56,189,248,.4);transition:all .3s}
+.bigbtn:hover{transform:translateY(-2px);box-shadow:0 0 42px rgba(56,189,248,.65)}
+
+/* TASK */
+#s-task{padding:0}
+.topbar{display:flex;align-items:center;gap:8px;padding:10px 14px 8px;flex-shrink:0}
+.tbback{background:rgba(56,189,248,.08);border:1px solid var(--border);border-radius:8px;padding:5px 10px;color:var(--a);font-family:'Orbitron',sans-serif;font-size:10px;cursor:pointer}
+.tbwrap{flex:1;display:flex;flex-direction:column;gap:3px}
+.tblbl{display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:9px;color:var(--muted)}
+.tbbar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.tbfill{height:100%;background:linear-gradient(90deg,var(--a),var(--green));border-radius:3px;transition:width .5s}
+.word-strip{display:flex;gap:4px;justify-content:center;padding:7px 14px;flex-shrink:0;background:rgba(0,0,0,.35);border-bottom:1px solid var(--border)}
+.wl{width:30px;height:34px;border-radius:6px;background:rgba(56,189,248,.05);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:transparent;transition:all .4s}
+.wl.on{color:var(--green);border-color:var(--green);background:rgba(52,211,153,.12);box-shadow:0 0 10px rgba(52,211,153,.3);animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.scroll{flex:1;overflow-y:auto;padding:0 14px 14px}.scroll::-webkit-scrollbar{width:3px}.scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.chshell{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);margin-top:6px}
+.chhead{background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(56,189,248,.05));padding:12px 14px 10px}
+.chn{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:2px}
+.cht{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:#fff;margin-bottom:5px}
+.chsubj{display:inline-flex;align-items:center;gap:4px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22);border-radius:20px;padding:2px 9px;font-size:9px;color:var(--a);font-weight:700;letter-spacing:1px}
+.chstory{background:rgba(56,189,248,.03);border-left:3px solid var(--a);padding:10px 12px;font-size:12px;line-height:1.7;font-style:italic;color:var(--text)}
+.ptabs{display:flex;background:var(--panel);border-bottom:1px solid var(--border)}
+.ptab{flex:1;padding:8px 4px;text-align:center;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:9px;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.ptab:hover{color:var(--a)}.ptab.active{color:var(--a);border-bottom-color:var(--a)}
+.ptab.ok{color:var(--green);border-bottom-color:var(--green)}.ptab.err{color:var(--hot);border-bottom-color:var(--hot)}
+.ppanels{background:var(--panel)}.ppanel{display:none;padding:12px}.ppanel.active{display:block}
+.phead{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pavatar{width:30px;height:30px;border-radius:50%;background:rgba(56,189,248,.12);border:1.5px solid var(--a);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.pname{font-family:'Orbitron',sans-serif;font-size:11px;color:var(--glow);font-weight:700}.plbl{font-size:10px;color:var(--muted);margin-top:1px}
+.ptaskq{font-size:14px;font-weight:700;color:var(--text);margin:8px 0 6px;line-height:1.5}
+.inp{background:rgba(56,189,248,.06);border:1px solid var(--border);border-radius:8px;padding:8px 11px;color:var(--glow);font-family:'Orbitron',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.inp:focus{border-color:var(--a);box-shadow:0 0 10px rgba(56,189,248,.18)}
+.inp::placeholder{color:var(--border);font-size:12px;font-family:'Nunito',sans-serif}
+.inpw{width:100%}.inpsm{width:66px;text-align:center}
+.irow{display:flex;align-items:center;gap:8px;margin:4px 0}.irow label{font-size:13px;flex:1}
+.hintbox{background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.18);border-radius:8px;padding:7px 11px;font-size:11px;color:var(--gold);margin:7px 0;line-height:1.5}
+.infobox{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.18);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--text);margin:7px 0;line-height:1.7}
+
+/* draw steps */
+.draw-steps{display:flex;flex-direction:column;gap:5px;margin:8px 0}
+.draw-step{display:flex;align-items:center;gap:8px;background:rgba(56,189,248,.04);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;line-height:1.4}
+.draw-step .ds-n{font-family:'Orbitron',sans-serif;font-size:10px;color:var(--a);min-width:18px;font-weight:700}
+
+.chkbtn{width:100%;margin-top:10px;padding:10px;background:rgba(56,189,248,.1);border:1.5px solid var(--a);border-radius:10px;color:var(--a);font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .25s}
+.chkbtn:hover{background:rgba(56,189,248,.22)}.chkbtn:disabled{opacity:.4;cursor:default}
+.rcard{border-radius:10px;padding:11px 13px;margin-top:8px;display:flex;align-items:center;gap:11px;animation:fi .4s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.rcard.ok{background:rgba(52,211,153,.1);border:1.5px solid rgba(52,211,153,.4)}.rcard.err{background:rgba(248,113,113,.08);border:1.5px solid rgba(248,113,113,.3)}
+.ri{font-size:26px;flex-shrink:0}.rtxt{flex:1}
+.rtit{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;margin-bottom:2px}
+.rcard.ok .rtit{color:var(--green)}.rcard.err .rtit{color:var(--hot)}
+.rsub{font-size:11px;color:var(--muted)}.rltr{font-family:'Orbitron',sans-serif;font-size:24px;color:var(--green);text-shadow:0 0 14px rgba(52,211,153,.7);flex-shrink:0}
+.nextbtn{width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(52,211,153,.1));border:1.5px solid var(--green);border-radius:10px;color:var(--green);font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;cursor:pointer;transition:all .3s;display:none}
+.nextbtn.show{display:block}.nextbtn:hover{box-shadow:0 0 16px rgba(52,211,153,.3)}
+
+/* CODE */
+#s-code{align-items:center;justify-content:center;text-align:center;gap:14px;padding:20px}
+.codet{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#fff}.codet span{color:var(--a)}
+.cwrap{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.cbox{width:46px;height:54px;background:var(--panel);border:2px solid var(--green);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.cbox .cn{font-size:8px;color:var(--muted);font-family:'Orbitron',sans-serif}.cbox .cv{font-family:'Orbitron',sans-serif;font-size:22px;color:var(--green);font-weight:900}
+.csub{font-size:12px;color:var(--muted);max-width:300px;line-height:1.5}
+
+/* FINAL */
+#s-final{align-items:center;justify-content:center;text-align:center;gap:12px;padding:20px}
+.ficon{font-size:72px;display:block;animation:flt 1.5s ease-in-out infinite alternate}
+@keyframes flt{from{transform:translateY(0) scale(1);filter:drop-shadow(0 0 12px #38bdf8)}to{transform:translateY(-10px) scale(1.05);filter:drop-shadow(0 0 32px #34d399)}}
+.fword{font-family:'Orbitron',sans-serif;font-size:clamp(22px,7vw,44px);font-weight:900;letter-spacing:4px;color:var(--green);text-shadow:0 0 34px rgba(52,211,153,.8);animation:wrd .8s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes wrd{from{opacity:0;transform:scale(.4) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.fsub{font-size:14px;color:var(--text);max-width:300px;line-height:1.6;animation:fu .5s .3s ease both}
+.fbox{background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);border-radius:var(--r);padding:14px 18px;max-width:340px;font-size:13px;color:var(--green);line-height:1.7;animation:fu .5s .5s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.cp{position:fixed;width:7px;height:7px;border-radius:2px;pointer-events:none;z-index:999;animation:cpf linear forwards}
+@keyframes cpf{from{transform:translateY(-8px) rotate(0);opacity:1}to{transform:translateY(105vh) rotate(800deg);opacity:0}}
+
+.legend-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:6px}
+.lc-head{padding:14px 16px 12px;background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(56,189,248,.06))}
+.lc-num{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:3px}
+.lc-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:#fff;margin-bottom:6px}
+.lc-subj{display:inline-flex;align-items:center;gap:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);border-radius:20px;padding:2px 10px;font-size:9px;color:var(--a);font-weight:700;letter-spacing:1px}
+.lc-story{padding:14px 16px;font-size:13px;line-height:1.8;color:var(--text);font-style:italic;border-top:1px solid var(--border);background:rgba(56,189,248,.03)}
+.lc-task{padding:14px 16px;border-top:1px solid var(--border)}
+.lc-task-lbl{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:10px}
+.lc-body{font-size:13px;line-height:1.8;color:var(--text)}
+.lc-body strong{color:var(--glow)}
+.lc-go{display:block;width:100%;margin-top:14px;padding:14px;background:rgba(56,189,248,.08);border:1.5px solid var(--a);border-radius:12px;color:var(--a);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .3s;text-align:center}
+.lc-go:hover{background:rgba(56,189,248,.2)}
+.code-strip{display:flex;gap:5px;justify-content:center;align-items:center;padding:7px 14px;flex-shrink:0;background:rgba(0,0,0,.35);border-bottom:1px solid var(--border)}
+.cs-lbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);margin-right:4px}
+.cs-d{width:32px;height:36px;border-radius:6px;background:rgba(56,189,248,.04);border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;transition:all .4s}
+.cs-d .cdn{font-size:7px;color:var(--muted);font-family:'Orbitron',sans-serif}
+.cs-d .cdv{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:transparent}
+.cs-d.lit{border-color:var(--gold);background:rgba(251,191,36,.1);animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+.cs-d.lit .cdv{color:var(--gold)}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+#s-digit{align-items:center;justify-content:center;text-align:center;gap:16px;padding:24px}
+.dg-box{background:var(--panel);border:3px solid var(--gold);border-radius:20px;padding:26px 38px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 0 38px rgba(251,191,36,.2)}
+.dg-val{font-family:'Orbitron',sans-serif;font-size:72px;font-weight:900;color:var(--gold);line-height:1}
+.dg-lbl{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2px;color:var(--muted)}
+.dg-next{padding:14px 36px;background:rgba(52,211,153,.1);border:1.5px solid var(--green);border-radius:14px;color:var(--green);font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .3s}
+.dg-next:hover{box-shadow:0 0 20px rgba(52,211,153,.3);transform:translateY(-1px)}
+.cp-wrap{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.cp-pill{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:8px;padding:4px 12px;font-family:'Orbitron',sans-serif;font-size:13px;color:var(--gold)}
+.cp-pill span{font-size:8px;color:var(--muted);display:block}
+
+/* PhBL additions */
+.phenom-box{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.3);border-radius:var(--r,14px);padding:14px 16px;margin:10px 0}
+.phenom-box h4{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:#a78bfa;margin-bottom:8px}
+.phenom-box p{font-size:13px;line-height:1.7;color:var(--text,#dbeafe)}
+.phenom-q{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:12px 14px;margin:10px 0}
+.phenom-q label{font-size:11px;color:var(--muted,#2a5a7a);display:block;margin-bottom:6px;font-family:'Orbitron',sans-serif;letter-spacing:1px}
+.phenom-q p{font-size:14px;line-height:1.6;color:var(--text,#dbeafe);margin-bottom:8px}
+.phenom-q textarea{width:100%;background:rgba(56,189,248,.05);border:1px solid var(--border,#16305a);border-radius:8px;padding:8px 10px;color:var(--a,#38bdf8);font-family:'Nunito',sans-serif;font-size:13px;resize:none;outline:none;height:56px;transition:border-color .2s}
+.phenom-q textarea:focus{border-color:var(--a,#38bdf8)}
+.lc-phbl{background:rgba(52,211,153,.06);border-left:3px solid #34d399;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px;line-height:1.7;color:var(--text,#dbeafe)}
+.lc-phbl strong{color:#34d399}
+.dg-insight{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13px;line-height:1.7;color:var(--text,#dbeafe);text-align:center;max-width:340px}
+</style>
+<body>
+<div id="stars"></div>
+<div id="app">
+<div class="screen active" id="s-intro">
+  <div class="gbadge" style="background:linear-gradient(135deg,#0284c7,#38bdf8);box-shadow:0 0 18px rgba(0,0,0,.3)">⚡ ГРУППА 1</div>
+  <div class="ilogo">ОПЕРАЦИЯ<br><em>«ТЕХНОЛЭНД»</em></div>
+  <p class="isub">Город будущего в опасности! Пройдите 6 испытаний, соберите код и верните городу его слово.</p>
+  <div class="howbox">
+    <h3>КАК ИГРАТЬ</h3>
+    <div class="hstep"><div class="hnum">1</div><span>Читайте легенду — узнайте, что происходит в городе</span></div>
+    <div class="hstep"><div class="hnum">2</div><span>Каждый берёт планшет и решает своё задание</span></div>
+    <div class="hstep"><div class="hnum">3</div><span>Все решили → получаете цифру кода этой главы</span></div>
+    <div class="hstep"><div class="hnum">4</div><span>6 цифр → вводите код → город называет своё слово!</span></div>
+  </div>
+  <div class="phenom-q">
+    <label>🔭 ФЕНОМЕН УРОКА</label>
+    <p>Посмотри на тёмный город. Как ты думаешь — <strong>почему Технолэнд остановился?</strong></p>
+    <textarea id="phenom-inp" placeholder="Напиши свой вопрос или мысль…"></textarea>
+  </div>
+  <button class="bigbtn" style="background:linear-gradient(135deg,#0284c7,#38bdf8);box-shadow:0 0 26px rgba(0,0,0,.3)" onclick="go('s-task');initCh(0)">🚀 НАЧАТЬ МИССИЮ</button>
+</div>
+
+<div class="screen" id="s-task">
+  <div class="topbar">
+    <div class="tb-back" onclick="go('s-intro')">←</div>
+    <div class="tb-wrap">
+      <div class="tb-lbl"><span id="tblbl">Глава 1 из 6</span><span id="tbpct">0%</span></div>
+      <div class="tb-bar"><div class="tb-fill" id="tbfill" style="width:0%;background:linear-gradient(135deg,#0284c7,#38bdf8)"></div></div>
+    </div>
+  </div>
+  <div class="code-strip">
+    <span class="cs-lbl">КОД:</span>
+    <div class="cs-d" id="cd0"><div class="cdn">1</div><div class="cdv" id="cv0"></div></div><div class="cs-d" id="cd1"><div class="cdn">2</div><div class="cdv" id="cv1"></div></div><div class="cs-d" id="cd2"><div class="cdn">3</div><div class="cdv" id="cv2"></div></div><div class="cs-d" id="cd3"><div class="cdn">4</div><div class="cdv" id="cv3"></div></div><div class="cs-d" id="cd4"><div class="cdn">5</div><div class="cdv" id="cv4"></div></div><div class="cs-d" id="cd5"><div class="cdn">6</div><div class="cdv" id="cv5"></div></div>
+  </div>
+  <div id="sv-legend" class="scroll" style="display:block"></div>
+  <div id="sv-tasks" class="scroll" style="display:none"></div>
+</div>
+
+<div class="screen" id="s-digit">
+  <div style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;color:var(--muted)" id="dg-ch-el"></div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#fff" id="dg-title-el"></div>
+  <div style="font-size:13px;color:var(--text);max-width:300px;line-height:1.6;text-align:center" id="dg-msg-el"></div>
+  <div class="dg-box">
+    <div class="dg-lbl">ЦИФРА КОДА</div>
+    <div class="dg-val" id="dg-val-el"></div>
+  </div>
+  <div class="cp-wrap" id="dg-pills"></div>
+  <button class="dg-next" id="dg-next-btn" onclick="nextCh()">→ СЛЕДУЮЩАЯ ГЛАВА</button>
+</div>
+
+<div class="screen" id="s-code">
+  <div class="code-title">Введите <span>6-значный код!</span></div>
+  <p style="font-size:12px;color:var(--muted)">Соберите цифры из всех 6 глав</p>
+  <div class="code-collected" id="code-coll"></div>
+  <div class="code-inp-row" id="code-inps"></div>
+  <div class="code-err" id="code-err"></div>
+  <button class="code-check-btn" style="background:linear-gradient(135deg,#0284c7,#38bdf8);box-shadow:0 0 22px rgba(0,0,0,.3)" onclick="checkCode()">РАЗБЛОКИРОВАТЬ СЛОВО →</button>
+  <p style="font-size:12px;color:var(--muted);max-width:300px;text-align:center">Цифры видны в полоске «КОД:» на экране заданий</p>
+</div>
+
+<div class="screen" id="s-final">
+  <div class="ficon" style="font-size:72px;display:block;animation:flt 1.5s ease-in-out infinite alternate">🏙️</div>
+  <div style="font-family:'Orbitron',sans-serif;font-size:clamp(24px,7vw,46px);font-weight:900;letter-spacing:5px;color:var(--green);text-shadow:0 0 34px rgba(52,211,153,.8);animation:win .8s cubic-bezier(.34,1.56,.64,1) both">РАЗВИВАЕМ</div>
+  <div style="font-size:14px;color:var(--text);max-width:300px;line-height:1.6;text-align:center;animation:fu .5s .3s ease both">Группа 1 разблокировала своё слово! Технолэнд оживает!</div>
+  <div style="background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);border-radius:var(--r);padding:14px 18px;max-width:340px;font-size:13px;color:var(--green);line-height:1.7;text-align:center;animation:fu .5s .5s ease both">🔑 Ваше слово: <strong>РАЗВИВАЕМ</strong><br><br>Дождитесь остальных групп — три слова сложатся в главное послание Технолэнда!</div>
+</div>
+</div>
+<script>
+const CHAPTERS=[
+{
+  title:'Логический мост',subject:'Математика',subjectIcon:'🔢',
+  codeDigit:'8',
+  phbl:'🌍 В реальной жизни: числовые закономерности — основа роста. Города планируют: если каждый год строить 7 домов — через 10 лет будет 70. Математика = инструмент развития.',
+  insight:'🔢 Ты только что использовал математику так, как это делают строители и экономисты городов — чтобы планировать рост!',
+  story:'⚡ Рэй: «Мост в центр Технолэнда рассыпался! Каждая плита держится на задаче про наш город. Решите свои — и дорога откроется!»',
+  taskDesc:'<p>У каждого игрока — своя задача про Технолэнд. Решите все четыре — и мост починится!</p>',
+  players:[
+    {name:'Игрок 1',icon:'🔵',lbl:'Задача про город',
+     html:`<div class="ptaskq">В Технолэнде было 47 домов. Построили ещё 36. Сколько домов стало?</div>
+      
+      <input class="inp inpsm" id="p0i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p0i'))==='83',ans:'83'},
+    {name:'Игрок 2',icon:'🟢',lbl:'Задача про город',
+     html:`<div class="ptaskq">На улице Технолэнда было 91 фонарь. Во время аварии погасли 54. Сколько фонарей горит?</div>
+      
+      <input class="inp inpsm" id="p1i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p1i'))==='37',ans:'37'},
+    {name:'Игрок 3',icon:'🟡',lbl:'Запиши как сумму разрядных слагаемых',
+     html:`<div class="ptaskq">В складе Технолэнда 68 деталей. Запиши это число как сумму десятков и единиц:</div>
+      
+      <input class="inp inpw" id="p2i" placeholder="60 + 8">`,
+     chk:()=>{const v=nrm(gv('p2i')).replace(/\s/g,'');return v==='60+8'||v==='8+60';},ans:'60 + 8'},
+    {name:'Игрок 4',icon:'🔴',lbl:'Загадка — думайте вместе!',
+     html:`<div class="ptaskq" style="font-size:15px;font-weight:700;line-height:1.7">🕯️ В комнате горело 50 свечей.<br>20 из них задули.<br>Сколько свечей останется?</div>
+      <div style="margin:10px 0;font-size:13px;color:var(--muted)">Подумайте вместе перед тем как ответить!</div>
+      <input class="inp inpsm" id="p3i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p3i'))==='20',ans:'20 — задутые не сгорят, остальные 30 сгорят!'},
+  ]
+},
+{
+  title:'Робот-художник: РОБОТ',subject:'Английский + Информатика',subjectIcon:'🤖',
+  codeDigit:'3',
+  phbl:'🌍 В реальной жизни: алгоритм на английском — это то, как инженеры передают чертежи по всему миру. Без точного языка — невозможно создать что-то вместе.',
+  insight:'🤖 Ты прочитал инструкцию по-английски — и из слов появился рисунок. Именно так программисты пишут код: слова превращаются в действия!',
+  story:'🐕 Байт: «Жители забыли, как выглядит робот-помощник! Нужно дать команду компьютеру нарисовать его — но он понимает только английский!»',
+  taskDesc:'<p>Каждый игрок рисует <strong>свои шаги</strong> алгоритма и переводит название фигуры. Потом <strong>Игрок 4</strong> считает фигуры на всех рисунках вместе!</p><p style="font-size:12px;color:var(--muted)">📌 Нужны листочки и карандаши.</p>',
+  players:[
+    {name:'Игрок 1',icon:'🔵',lbl:'Нарисуй шаги 1 и 2',
+     html:`<div class="info-box"><strong style="color:var(--a)">Твои шаги:</strong>
+      <div class="draw-steps" style="margin-top:8px">
+        <div class="draw-step"><span class="ds-n">1.</span>Draw a big <strong>square</strong> for the body.</div>
+        <div class="draw-step"><span class="ds-n">2.</span>Draw two long <strong>rectangles</strong> for the arms.</div>
+      </div></div>
+      
+      <div style="margin-top:10px;font-size:12px;color:var(--muted)">✏️ Нарисуй и передай планшет!</div>`,
+     chk:()=>true,ans:'✓'},
+    {name:'Игрок 2',icon:'🟢',lbl:'Нарисуй шаги 3 и 4',
+     html:`<div class="info-box"><strong style="color:var(--a)">Твои шаги:</strong>
+      <div class="draw-steps" style="margin-top:8px">
+        <div class="draw-step"><span class="ds-n">3.</span>Draw two small <strong>circles</strong> for the hands.</div>
+        <div class="draw-step"><span class="ds-n">4.</span>Draw a big <strong>circle</strong> for the head.</div>
+      </div></div>
+      
+      <div style="margin-top:10px;font-size:12px;color:var(--muted)">✏️ Нарисуй и передай планшет!</div>`,
+     chk:()=>true,ans:'✓'},
+    {name:'Игрок 3',icon:'🟡',lbl:'Нарисуй шаги 5 и 6',
+     html:`<div class="info-box"><strong style="color:var(--a)">Твои шаги:</strong>
+      <div class="draw-steps" style="margin-top:8px">
+        <div class="draw-step"><span class="ds-n">5.</span>Draw two <strong>eyes</strong> on the head.</div>
+        <div class="draw-step"><span class="ds-n">6.</span>Draw a <strong>rectangle</strong> for the mouth.</div>
+      </div></div>
+      <div style="margin-top:10px;font-size:12px;color:var(--muted)">✏️ Нарисуй и передай планшет!</div>`,
+     chk:()=>true,ans:'✓'},
+    {name:'Игрок 4',icon:'🔴',lbl:'Нарисуй шаги 7 и 8, потом считайте вместе!',
+     html:`<div class="info-box"><strong style="color:var(--a)">Твои шаги:</strong>
+      <div class="draw-steps" style="margin-top:8px">
+        <div class="draw-step"><span class="ds-n">7.</span>Draw two small <strong>antennas</strong> on the head.</div>
+        <div class="draw-step"><span class="ds-n">8.</span><strong>Colour</strong> the body blue and the head red.</div>
+      </div></div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:12px">Теперь все вместе — посчитайте фигуры:</div>
+      <div class="irow"><label>Всего <strong>circles</strong> (кругов):</label><input class="inp inpsm" id="p3a" placeholder="?" inputmode="numeric"></div>
+      <div class="irow"><label>Всего <strong>rectangles</strong> (прямоугольников):</label><input class="inp inpsm" id="p3i" placeholder="?" inputmode="numeric"></div>`,
+     chk:()=>nrm(gv('p3a'))==='3'&&nrm(gv('p3i'))==='3',ans:'circles=3, rectangles=3'},
+  ]
+},
+{
+  title:'Энергетический реактор',subject:'Математика',subjectIcon:'✖️',
+  codeDigit:'7',
+  phbl:'🌍 В реальной жизни: умножение — это модель роста. Одна идея × много людей = большой результат. Именно так работают команды в городах будущего.',
+  insight:'⚡ Умножение — это не просто арифметика. Это принцип любого роста: маленькое действие, повторённое много раз, даёт большой результат!',
+  story:'🤖 Рэй мигает красным: «Реактор работает на закономерностях! Найдите правило в каждом ряду — и энергия вернётся в город!»',
+  taskDesc:'<p>Каждый игрок исследует свою закономерность. Найдите правило — и продолжите ряд!</p>',
+  players:[
+    {name:'Игрок 1',icon:'🔵',lbl:'Найди правило и продолжи ряд',
+     html:`<div class="ptaskq">🔍 Продолжи числовой ряд:</div>
+      <div style="background:rgba(56,189,248,.07);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin:8px 0;font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:var(--a);letter-spacing:2px;text-align:center">3, 6, 9, 12, …</div>
+      <div style="font-size:13px;color:var(--muted);margin:4px 0">Следующее число:</div>
+      <input class="inp inpsm" id="p0i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p0i'))==='15',ans:'15 (каждый раз +3)'},
+    {name:'Игрок 2',icon:'🟢',lbl:'Найди два правила и продолжи ряд',
+     html:`<div class="ptaskq">🔍 Здесь два чередующихся правила:</div>
+      <div style="background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:12px 16px;margin:8px 0;font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:var(--green);letter-spacing:2px;text-align:center">15, 8, 13, 6, 11, …</div>
+      <div style="font-size:13px;color:var(--muted);margin:4px 0">Следующее число (правило: −7, потом +5, потом −7…):</div>
+      <input class="inp inpsm" id="p1i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p1i'))==='4',ans:'4 (11−7=4)'},
+    {name:'Игрок 3',icon:'🟡',lbl:'Числа и буквы — найди закономерность',
+     html:`<div class="ptaskq">🔍 Числа и буквы чередуются. Найди правило:</div>
+      <div style="background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:10px;padding:12px 16px;margin:8px 0;font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:var(--amber);letter-spacing:2px;text-align:center">2, А, 4, Б, 6, В, ?, Г, ?, Д</div>
+      <div style="font-size:13px;color:var(--muted);margin:4px 0">Два пропущенных числа через запятую:</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input class="inp inpsm" id="p2a" placeholder="?" inputmode="numeric" style="width:60px">
+        <span style="color:var(--muted);font-size:13px">и</span>
+        <input class="inp inpsm" id="p2i" placeholder="?" inputmode="numeric" style="width:60px">
+      </div>`,
+     chk:()=>nrm(gv('p2a'))==='8'&&nrm(gv('p2i'))==='10',ans:'8 и 10'},
+    {name:'Игрок 4',icon:'🔴',lbl:'Найди закономерность — думайте вместе!',
+     html:`<div class="ptaskq">🔍 Ряд умножения. Найди правило:</div>
+      <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.25);border-radius:10px;padding:12px 16px;margin:8px 0;font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:var(--purple);letter-spacing:2px;text-align:center">2, 4, 8, 16, …</div>
+      <div style="font-size:13px;color:var(--muted);margin:4px 0">Следующее число (каждый раз ×2):</div>
+      <input class="inp inpsm" id="p3i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p3i'))==='32',ans:'32 (×2 каждый раз)'},
+  ]
+},
+{
+  title:'Алгоритм спасения',subject:'Информатика + English',subjectIcon:'💻',
+  codeDigit:'3',
+  phbl:'🌍 В реальной жизни: каждое утро ты выполняешь алгоритм. Без алгоритма — хаос. Города работают по тысячам алгоритмов одновременно.',
+  insight:'💻 Ты только что составил алгоритм — как настоящий программист. Любое развитие идёт по шагам. Нет алгоритма — нет движения вперёд!',
+  story:'🐕 Байт: «Робот-строитель Технолэнда не знает, в каком порядке строить дом! Без правильного алгоритма город не восстановится. Помогите ему!»',
+  taskDesc:'<p>Все задания — на английском языке! Восстановите алгоритм строительства дома в Технолэнде.</p>',
+  players:[
+    {name:'Игрок 1',icon:'🔵',lbl:'Find the mistake in the algorithm:',
+     html:`<div class="ptaskq">Algorithm: "Build a house in Technoland"</div>
+      <div class="info-box">1. Lay the foundation<br>2. Move in the residents<br>3. Build the walls<br>4. Build the roof</div>
+      <div class="ptaskq" style="margin-top:8px">Which step is in the wrong place? (write the number)</div>
+      <input class="inp inpsm" id="p0i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p0i'))==='2',ans:'2 — residents move in LAST'},
+    {name:'Игрок 2',icon:'🟢',lbl:'Put the steps in order (write numbers 1–4):',
+     html:`<div class="ptaskq">Algorithm: "Build a house in Technoland".<br>Put steps in the correct order:</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+        ${[['Move in the residents','4'],['Lay the foundation','1'],['Build the walls','2'],['Build the roof','3']].map(([t],i)=>`
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(56,189,248,.04);border:1px solid var(--border);border-radius:8px;padding:7px 10px">
+            <input style="width:42px;background:rgba(56,189,248,.08);border:1px solid var(--border);border-radius:6px;padding:4px;color:var(--a);font-family:'Orbitron',sans-serif;font-size:15px;text-align:center;outline:none" id="ord${i}" placeholder="?" inputmode="numeric">
+            <span style="font-size:13px">${t}</span>
+          </div>`).join('')}
+      </div>`,
+     chk:()=>gv('ord0')==='4'&&gv('ord1')==='1'&&gv('ord2')==='2'&&gv('ord3')==='3',ans:'1-Foundation, 2-Walls, 3-Roof, 4-Residents'},
+    {name:'Игрок 3',icon:'🟡',lbl:'Count the commands:',
+     html:`<div class="ptaskq">The robot follows this algorithm:</div>
+      <div class="info-box">1. Step forward<br>2. Turn right<br>3. Step forward<br>4. Step forward<br>5. Turn left<br>6. Pick up the brick</div>
+      <div class="ptaskq" style="margin-top:8px">How many times did the robot "step forward"?</div>
+      <input class="inp inpsm" id="p2i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p2i'))==='3',ans:'3'},
+    {name:'Игрок 4',icon:'🔴',lbl:'Count the steps:',
+     html:`<div class="ptaskq">Morning algorithm of a Technoland resident:</div>
+      <div class="info-box">wake up → wash face → have breakfast → get dressed → take backpack → leave home</div>
+      <div class="ptaskq" style="margin-top:8px">How many steps?</div>
+      <input class="inp inpsm" id="p3i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p3i'))==='6',ans:'6'},
+  ]
+},
+{
+  title:'Язык роботов',subject:'Информатика + English',subjectIcon:'🔀',
+  codeDigit:'4',
+  phbl:'🌍 В реальной жизни: ветвление — в светофорах, банкоматах, навигаторах. Цикл — в дворниках, мигалках, часах. Программирование — везде вокруг нас.',
+  insight:'🔀 Ветвление = умение принимать решения. Цикл = привычка. Именно повторяемая практика — основа любого развития!',
+  story:'🤖 Рэй: «Роботы-стражи застыли — их программы содержат условия и повторения. Разберите алгоритмы и роботы оживут!»',
+  taskDesc:'<p>Каждый игрок разбирает свою часть: ветвление (ЕСЛИ…ТО…ИНАЧЕ) или цикл (ПОВТОРЯЙ N РАЗ).</p>',
+  players:[
+    {name:'Игрок 1',icon:'🔵',lbl:'Ветвление — что напишет робот?',
+     html:`<div class="ptaskq"><div class="info-box">ЕСЛИ число больше 10<br>ТО напиши «большое»<br>ИНАЧЕ напиши «маленькое»</div>Число = 7. Что напишет робот?</div>
+      <input class="inp inpw" id="p0i" placeholder="...">`,
+     chk:()=>nrm(gv('p0i')).toLowerCase().includes('малень'),ans:'маленькое'},
+    {name:'Игрок 2',icon:'🟢',lbl:'Ветвление — что напишет робот?',
+     html:`<div class="ptaskq"><div class="info-box">ЕСЛИ число чётное<br>ТО напиши «YES»<br>ИНАЧЕ напиши «NO»</div>Число = 14. Что напишет робот?</div>
+      <input class="inp inpsm" id="p1i" placeholder="...">`,
+     chk:()=>nrm(gv('p1i')).toUpperCase()==='YES',ans:'YES'},
+    {name:'Игрок 3',icon:'🟡',lbl:'Цикл — посчитай результат',
+     html:`<div class="ptaskq"><div class="info-box">ПОВТОРЯЙ 4 РАЗА<br>&nbsp;&nbsp;Шагнуть вперёд<br>&nbsp;&nbsp;Повернуть направо<br>КОНЕЦ ЦИКЛА</div>Сколько раз повернул направо?</div>
+      <input class="inp inpsm" id="p2i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p2i'))==='4',ans:'4'},
+    {name:'Игрок 4',icon:'🔴',lbl:'Составь алгоритм — что получится?',
+     html:`<div class="ptaskq">Робот выполняет эти команды по порядку:</div>
+      <div class="info-box">1. Шагнуть вперёд<br>2. Повернуть направо<br>3. Шагнуть вперёд<br>4. Повернуть направо<br>5. Шагнуть вперёд<br>6. Повернуть направо<br>7. Шагнуть вперёд</div>
+      <div style="margin-top:8px;font-size:13px;color:var(--text)">Какую фигуру нарисовал робот?</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+        ${['Треугольник','Квадрат','Прямую линию','Круг'].map((v,i)=>`<label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:rgba(56,189,248,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px"><input type="radio" name="p3r" value="${i}" style="accent-color:var(--a);flex-shrink:0"> ${v}</label>`).join('')}
+      </div>`,
+     chk:()=>{const r=document.querySelector('input[name="p3r"]:checked');return r&&r.value==='1';},ans:'Квадрат (4 стороны + 3 поворота)'},
+  ]
+},
+{
+  title:'Финальный сигнал',subject:'Математика',subjectIcon:'🏙️',
+  codeDigit:'4',
+  phbl:'🌍 В реальной жизни: задача в два действия — это модель планирования. Сначала считаешь что было, потом что изменилось. Так работают мэры городов.',
+  insight:'🏙️ Ты решил задачу в два действия — как планировщик города! «Было → изменилось → стало». Это и есть формула любого развития!',
+  story:'🤖🐕 Рэй и Байт вместе: «Вы добрались до главного сервера! Финальное испытание — и Технолэнд вспомнит своё слово!»',
+  taskDesc:'<p>Финальное испытание: задачи в два действия про развитие Технолэнда!</p>',
+  players:[
+    {name:'Игрок 1',icon:'🔵',lbl:'Задача в 2 действия',
+     html:`<div class="ptaskq">В мастерской было 48 деталей. Использовали 19 на ремонт моста, потом привезли ещё 25. Сколько деталей стало?</div>
+      
+      <input class="inp inpsm" id="p0i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p0i'))==='54',ans:'54'},
+    {name:'Игрок 2',icon:'🟢',lbl:'Задача на деление',
+     html:`<div class="ptaskq">Рэй раздаёт 25 батареек поровну 4 роботам-охранникам. Сколько батареек получит каждый? Сколько останется?</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px">Каждому:</span><input class="inp inpsm" id="p1a" placeholder="?" inputmode="numeric"></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px">Остаток:</span><input class="inp inpsm" id="p1i" placeholder="?" inputmode="numeric"></div>
+      </div>`,
+     chk:()=>nrm(gv('p1a'))==='6'&&nrm(gv('p1i'))==='1',ans:'по 6, ост. 1'},
+    {name:'Игрок 3',icon:'🟡',lbl:'Задача в 2 действия',
+     html:`<div class="ptaskq">В парке Технолэнда посадили 36 деревьев весной и 27 осенью. Потом 18 деревьев засохли. Сколько деревьев осталось?</div>
+      
+      <input class="inp inpsm" id="p2i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p2i'))==='45',ans:'45'},
+    {name:'Игрок 4',icon:'🔴',lbl:'Задача в 2 действия',
+     html:`<div class="ptaskq">Байт собрал команду из 8 роботов. Каждый починил 6 фонарей. Потом ещё 12 фонарей починили вручную. Сколько фонарей починили всего?</div>
+      
+      <input class="inp inpsm" id="p3i" placeholder="?" inputmode="numeric">`,
+     chk:()=>nrm(gv('p3i'))==='60',ans:'60'},
+  ]
+}
+];
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function sv(id){['sv-legend','sv-tasks'].forEach(s=>document.getElementById(s).style.display='none');document.getElementById(id).style.display='block';}
+function gv(id){const e=document.getElementById(id);return e?e.value:'';}
+function nrm(s){return s.trim();}
+const SE=document.getElementById('stars');
+for(let i=0;i<70;i++){const s=document.createElement('div');s.className='star';const z=Math.random()*2+.4;s.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s`;SE.appendChild(s);}
+let chIdx=0,pc=[],collected=[];
+function initCh(i){
+  chIdx=i;pc=new Array(4).fill(false);
+  const p=Math.round(i/6*100);
+  document.getElementById('tblbl').textContent='Глава '+(i+1)+' из 6';
+  document.getElementById('tbpct').textContent=p+'%';
+  document.getElementById('tbfill').style.width=p+'%';
+  go('s-task');showLegend();
+}
+function showLegend(){
+  const ch=CHAPTERS[chIdx];
+  sv('sv-legend');
+  document.getElementById('sv-legend').scrollTop=0;
+  document.getElementById('sv-legend').innerHTML=`<div class="legend-card">
+    <div class="lc-head"><div class="lc-num">ГЛАВА ${chIdx+1} / 6</div><div class="lc-title">${ch.title}</div><div class="lc-subj">${ch.subjectIcon} ${ch.subject}</div></div>
+    <div class="lc-story">${ch.story}</div>
+    <div class="lc-phbl"><strong>🌍 Связь с реальным миром:</strong> ${ch.phbl}</div>
+    <div class="lc-task"><div class="lc-task-lbl">📋 ВАШЕ ЗАДАНИЕ</div><div class="lc-body">${ch.taskDesc}</div>
+    <button class="lc-go" onclick="showTasks()">⚡ ПРИСТУПИТЬ К ВЫПОЛНЕНИЮ →</button></div>
+  </div>`;
+}
+function showTasks(){
+  const ch=CHAPTERS[chIdx];
+  sv('sv-tasks');
+  document.getElementById('sv-tasks').scrollTop=0;
+  document.getElementById('sv-tasks').innerHTML=`<div class="ch-shell">
+    <div class="ch-head" style="background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(56,189,248,.06))"><div class="ch-n">ГЛАВА ${chIdx+1} / 6 — ВЫПОЛНЕНИЕ</div><div class="ch-t">${ch.title}</div><div class="ch-subj">${ch.subjectIcon} ${ch.subject}</div></div>
+    <div class="ptabs" id="ptabs">${ch.players.map((p,i)=>`<div class="ptab${i===0?' active':''}" id="pt${i}" onclick="swTab(${i})">${p.icon} ${i+1}</div>`).join('')}</div>
+    <div class="ppanels">${ch.players.map((p,i)=>`<div class="ppanel${i===0?' active':''}" id="pp${i}">
+      <div class="phead"><div class="pavatar" style="background:rgba(56,189,248,.12);border:1.5px solid var(--a)">${p.icon}</div><div><div class="pname">${p.name}</div><div class="plbl">${p.lbl}</div></div></div>
+      ${p.html}
+      <div id="r${i}"></div>
+      <button class="chkbtn" id="cb${i}" style="background:rgba(56,189,248,.1);border-color:var(--a);color:var(--a)" onclick="chkP(${i})">🔍 ПРОВЕРИТЬ МОЙ ОТВЕТ</button>
+    </div>`).join('')}</div>
+    <div id="nz"></div>
+  </div>`;
+}
+function swTab(i){
+  document.querySelectorAll('.ptab').forEach((t,j)=>t.classList.toggle('active',j===i));
+  document.querySelectorAll('.ppanel').forEach((p,j)=>p.classList.toggle('active',j===i));
+}
+function chkP(i){
+  const ch=CHAPTERS[chIdx],p=ch.players[i],ok=p.chk();
+  const tab=document.getElementById('pt'+i),btn=document.getElementById('cb'+i),rd=document.getElementById('r'+i);
+  if(ok){
+    pc[i]=true;
+    tab.classList.remove('active','err');tab.classList.add('ok');
+    btn.disabled=true;btn.textContent='✅ Верно!';
+    rd.innerHTML='<div class="rcard ok"><div class="ri">🎉</div><div class="rtxt"><div class="rtit">ПРАВИЛЬНО!</div><div class="rsub">Отличная работа!</div></div></div>';
+    const nx=pc.findIndex((c,j)=>j>i&&!c);if(nx>=0)setTimeout(()=>swTab(nx),600);
+    if(pc.every(Boolean)){
+      document.getElementById('nz').innerHTML='<div style="padding:12px"><div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.3);border-radius:10px;padding:12px;text-align:center;margin-bottom:10px"><div style="font-family:Orbitron,sans-serif;font-size:11px;color:var(--green);margin-bottom:4px">🎉 ВСЕ ИГРОКИ СПРАВИЛИСЬ!</div></div><button class="lc-go" style="border-color:var(--green);color:var(--green)" onclick="showDigit()">🔑 ПОЛУЧИТЬ ЦИФРУ КОДА →</button></div>';
+      setTimeout(()=>{document.getElementById('sv-tasks').scrollTop=9999;},200);
+    }
+  }else{
+    tab.classList.remove('ok');tab.classList.add('err');
+    btn.disabled=false;btn.textContent='🔍 ПОПРОБОВАТЬ ЕЩЁ РАЗ';
+    rd.innerHTML='<div class="rcard err"><div class="ri">💡</div><div class="rtxt"><div class="rtit">НЕВЕРНО — ПОПРОБУЙ ЕЩЁ!</div><div class="rsub">Проверь решение и попробуй снова.</div></div></div>';
+  }
+}
+function showDigit(){
+  const ch=CHAPTERS[chIdx];
+  collected[chIdx]=ch.codeDigit;
+  const d=document.getElementById('cd'+chIdx);
+  d.classList.add('lit');
+  document.getElementById('cv'+chIdx).textContent=ch.codeDigit;
+  document.getElementById('dg-ch-el').textContent='ГЛАВА '+(chIdx+1)+' ИЗ 6';
+  document.getElementById('dg-title-el').textContent=ch.title;
+  document.getElementById('dg-val-el').textContent=ch.codeDigit;
+  document.getElementById('dg-msg-el').textContent=chIdx<5?'Запомните цифру — она часть кода!':'Все 6 глав пройдены! Вводите код!';
+  document.getElementById('dg-pills').innerHTML=collected.map((d,i)=>d?'<div class="cp-pill"><span>Гл.'+(i+1)+'</span>'+d+'</div>':'').join('');
+  document.getElementById('dg-next-btn').textContent=chIdx<5?'→ СЛЕДУЮЩАЯ ГЛАВА':'🔐 ВВЕСТИ КОД';
+  go('s-digit');
+  const ins=document.getElementById('dg-insight');
+  if(ch.insight&&ins){ins.style.display='block';ins.textContent=ch.insight;}
+}
+function nextCh(){
+  if(chIdx<5){initCh(chIdx+1);}
+  else{buildCode();go('s-code');}
+}
+function buildCode(){
+  document.getElementById('code-coll').innerHTML=CHAPTERS.map((ch,i)=>'<div class="cbox"><div class="cn">Гл.'+(i+1)+'</div><div class="cv">'+ch.codeDigit+'</div></div>').join('');
+  document.getElementById('code-inps').innerHTML=Array.from({length:6},(_,i)=>'<input class="ci" id="ci'+i+'" maxlength="1" inputmode="numeric" oninput="mn(this,'+i+')">').join('');
+}
+window.mn=function(el,i){if(el.value.length===1&&i<5)document.getElementById('ci'+(i+1)).focus();};
+function checkCode(){
+  const entered=Array.from({length:6},(_,i)=>document.getElementById('ci'+i).value).join('');
+  const correct=CHAPTERS.map(c=>c.codeDigit).join('');
+  const err=document.getElementById('code-err');
+  if(entered===correct){err.textContent='';go('s-final');confetti();}
+  else{err.textContent='❌ Неверный код! Проверьте цифры.';document.querySelectorAll('.ci').forEach(el=>{el.style.borderColor='var(--hot)';setTimeout(()=>el.style.borderColor='var(--border)',900);});}
+}
+
+function confetti(){const cols=['#38bdf8','#34d399','#f472b6','#fbbf24','#a78bfa','#fff'];for(let i=0;i<90;i++)setTimeout(()=>{const c=document.createElement('div');c.className='cfp';c.style.cssText=`left:${Math.random()*100}vw;background:${cols[~~(Math.random()*cols.length)]};animation-duration:${1.5+Math.random()*2.5}s`;document.body.appendChild(c);setTimeout(()=>c.remove(),3500);},i*30);}
+</script>
+</body>
+</html>
