@@ -535,6 +535,50 @@ function checkCode(){
 }
 
 function confetti(){const cols=['#38bdf8','#34d399','#f472b6','#fbbf24','#a78bfa','#fff'];for(let i=0;i<90;i++)setTimeout(()=>{const c=document.createElement('div');c.className='cfp';c.style.cssText=`left:${Math.random()*100}vw;background:${cols[~~(Math.random()*cols.length)]};animation-duration:${1.5+Math.random()*2.5}s`;document.body.appendChild(c);setTimeout(()=>c.remove(),3500);},i*30);}
+
+
+// ── Touch / swipe ────────────────────────────────────────────────────────────
+(function(){
+  let startX=0, startY=0, curTab=0;
+
+  document.addEventListener('touchstart',function(e){
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+  },{passive:true});
+
+  document.addEventListener('touchend',function(e){
+    const dx=e.changedTouches[0].clientX-startX;
+    const dy=Math.abs(e.changedTouches[0].clientY-startY);
+    if(Math.abs(dx)<50||dy>80) return; // too short or vertical scroll
+
+    const activeScreen=document.querySelector('.screen.active');
+    if(!activeScreen) return;
+
+    if(activeScreen.id==='s-task'){
+      const taskArea=document.getElementById('sv-tasks');
+      const legendArea=document.getElementById('sv-legend');
+
+      // If on legend screen, swipe left → go to tasks
+      if(legendArea&&legendArea.style.display!=='none'){
+        if(dx<0) showTasks&&showTasks();
+        return;
+      }
+
+      // If on tasks screen, swipe between player tabs
+      if(taskArea&&taskArea.style.display!=='none'){
+        const tabs=document.querySelectorAll('.ptab');
+        if(tabs.length===0) return;
+        // find active tab
+        let cur=0;
+        tabs.forEach((t,i)=>{ if(t.classList.contains('active')) cur=i; });
+        if(dx<0 && cur<tabs.length-1) swTab(cur+1);  // swipe left → next player
+        else if(dx>0 && cur>0)         swTab(cur-1);  // swipe right → prev player
+        else if(dx>0 && cur===0)       sv('sv-legend'); // swipe right on first → back to legend
+        return;
+      }
+    }
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
